@@ -3,7 +3,7 @@ services:
     container_name: go_container
     build:
       context: .
-      dockerfile: ./api/dockerfile
+      dockerfile: ./dockerfile
     ports:
       - 9090:9090
       - 9091:9091

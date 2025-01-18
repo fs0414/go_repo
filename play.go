@@ -24,30 +24,33 @@ func sub() {
   fmt.Println("sub is finished")
 }
 
-type Person struct {
-	Name string
-	Arg  int
-}
+// type Person struct {
+// 	Name string
+// 	Arg  int
+// }
 
 type Animal struct {
   Name string
   Arg int
 }
 
-var person = Person{
-        Name: "sora",
-        Arg: 23,
-    }
+// var person = Person{
+//         Name: "sora",
+//         Arg: 23,
+//     }
 
-var animal = Animal{person}
+var animal = Animal{
+  Name: "sora",
+  Arg: 23,
+}
 
 func main() {
-  c := make(chan string)
-  go func() {
-    c <- "hello"
-  }()
-
-  close(c)
+  // c := make(chan string)
+  // go func() {
+  //   c <- "hello"
+  // }()
+  //
+  // close(c)
 
   fmt.Println(animal)
 }

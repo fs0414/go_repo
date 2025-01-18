@@ -1,57 +1,32 @@
 package main
 
-import (
-	"fmt"
-	"runtime"
-)
+import "fmt"
 
-func printStack() {
-  buf := make([]byte, 1024)
-  n := runtime.Stack(buf, false)
-  //fmt.Printf("Stack trace:\n%s\n", buf[:n])
-  fmt.Printf(string(buf[:n]))
+func main() {
+  arr := []int{43, 12, 55, 2, 81, 37, 65}
+  fmt.Println(quickSort(arr))
 }
 
 func quickSort(arr []int) []int {
-  //printStack()
-
-  int con := 1
-
-  if len(arr) < 2 {
+  if len(arr) <= 1 {
     return arr
   }
 
-  pivot := arr[0]
+  pivot := len(arr) / 2
+  left, right := []int{}, []int{}
 
-  var less []int
-  var greater []int
-
-  for _, v := range arr[1:] {
-    fmt.Println("pivot:", pivot)
-    fmt.Println("v:", v)
-    if v <= pivot {
-      less = append(less, v)
-    } else {
-      greater = append(greater, v)
+  for i, v := range arr {
+    if v > arr[pivot] {
+      right = append(right, arr[i])
+    } else if v < arr[pivot] {
+      left = append(left, arr[i])
     }
   }
-  fmt.Println("less:", less)
-  fmt.Println("geater:", greater)
-  return append(append(quickSort(less), pivot), quickSort(greater)...)
-}
 
-func callStackRun(arg int) int {
-  if arg < 2 {
-    return 1
-  }
-  fmt.Println("arg:", arg)
-  return callStackRun(arg - 1)
-}
+  left_sorted := quickSort(left)
+  right_sorted := quickSort(right)
 
-func main() {
-  arr := []int{33, 10, 55, 7, 89, 21, 45}
-  fmt.Println("before:", arr)
-  result := quickSort(arr)
-  //result := callStackRun(5)
-  fmt.Println("after:", result)
+  left_res := append(left_sorted, arr[pivot])
+  full_sorted := append(left_res, right_sorted...)
+  return full_sorted
 }
